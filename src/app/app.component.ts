@@ -7,10 +7,13 @@ import { WikipediaService } from './services/wikipedia.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  pages = [];
+
   constructor(private wikipedia: WikipediaService) { }
 
   onTerm(term: string) {
-    const results = this.wikipedia.search(term);
-    console.log(results);
+    this.wikipedia.search(term).subscribe((response: any) => {
+      this.pages = response.query.search;
+    })
   }
 }
